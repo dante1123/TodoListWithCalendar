@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
-import Template from "./componentes/Template";
-import TodoList from "./componentes/TodoList";
+import Template from "./todoComponentes/Template";
+import TodoList from "./todoComponentes/TodoList";
 import { MdAddCircle } from "react-icons/md";
 
 function App() {
