@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Template from "./componentes/Template";
+import TodoList from "./componentes/TodoList";
+import { MdAddCircle } from "react-icons/md";
 
 function App() {
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      text: "할일 1",
+      checked: true,
+    },
+    {
+      id: 2,
+      text: "할일 2",
+      checked: true,
+    },
+    {
+      id: 3,
+      text: "할일 3",
+      checked: false,
+    },
+  ]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Template todoLength={todos.length}>
+      <TodoList todos={todos} />
+      <div className="add-todo-button">
+        <MdAddCircle />
+      </div>
+    </Template>
   );
 }
 
