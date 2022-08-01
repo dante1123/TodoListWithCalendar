@@ -4,10 +4,8 @@
 }
 
 .title {
+  text-align: center;
   width: 90vh;
-  margin-left: auto;
-  margin-right: auto;
-
   padding-bottom: 20px;
   font-size: 1.5rem;
   font-weight: bold;
