@@ -6,7 +6,8 @@ import TodoInsert from "./TodoInsert";
 import { MdAddCircle } from "react-icons/md";
 
 let nextId = 2;
-function TodoApp() {
+function TodoApp({ dateValue }) {
+  console.log(dateValue);
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [insertToggle, setInsertToggle] = useState(false);
   const [todos, setTodos] = useState([

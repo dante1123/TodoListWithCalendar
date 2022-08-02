@@ -1,13 +1,27 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import "./TodoCalendar.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import TodoApp from "./TodoApp";
 
 function TodoCalendar() {
-  const [value, onChange] = useState(new Date());
+  const [dateValue, setDateValue] = useState(new Date());
+  const [detailDateToggle, setDetailDateToggle] = useState(false);
+
+  const onDetailDateToggle = () => {
+    if (dateValue != null) {
+      setDetailDateToggle(true);
+    }
+  };
   return (
-    <div>
-      <Calendar onChange={onChange} value={value} />
-    </div>
+    <>
+      <div>
+        {!detailDateToggle && (
+          <Calendar onChange={onDetailDateToggle} value={dateValue} />
+        )}
+        {detailDateToggle && <TodoApp dateValue={dateValue} />}
+      </div>
+    </>
   );
 }
 
