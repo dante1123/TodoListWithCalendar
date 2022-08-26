@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "./TodoCalendar.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TodoApp from "./TodoApp";
 
 function TodoCalendar() {
@@ -9,17 +8,21 @@ function TodoCalendar() {
   const [detailDateToggle, setDetailDateToggle] = useState(false);
 
   const onDetailDateToggle = () => {
-    if (dateValue != null) {
-      setDetailDateToggle(true);
-    }
+    setDetailDateToggle((prev) => !prev);
   };
+
   return (
     <>
       <div>
         {!detailDateToggle && (
           <Calendar onChange={onDetailDateToggle} value={dateValue} />
         )}
-        {detailDateToggle && <TodoApp dateValue={dateValue} />}
+        {detailDateToggle && (
+          <TodoApp
+            dateValue={dateValue}
+            onDetailDateToggle={onDetailDateToggle}
+          />
+        )}
       </div>
     </>
   );

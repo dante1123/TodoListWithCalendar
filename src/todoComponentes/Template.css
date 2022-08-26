@@ -5,9 +5,16 @@
 
 .title {
   text-align: center;
-  width: 90vh;
+  width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
   padding-bottom: 20px;
   font-size: 1.5rem;
   font-weight: bold;
   color: #6c567b;
+}
+
+.title .arrow {
+  float: left;
+  cursor: pointer;
 }
