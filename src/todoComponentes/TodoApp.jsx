@@ -4,6 +4,7 @@ import Template from "./Template";
 import TodoList from "./TodoList";
 import TodoInsert from "./TodoInsert";
 import { MdAddCircle } from "react-icons/md";
+import { getDateTime } from "./todoFunc";
 
 function TodoApp({ dateValue, onDetailDateToggle }) {
   //-------------------------------------------변수선언-------------------------------------------
@@ -12,13 +13,7 @@ function TodoApp({ dateValue, onDetailDateToggle }) {
   const [todos, setTodos] = useState([]);
 
   let nextId = "";
-  //----------------------------------------날짜 데이터 가공---------------------------------------
-  const dateTime = `${dateValue.getFullYear()}-${(
-    "0" +
-    (dateValue.getMonth() + 1)
-  ).slice(-2)}-${("0" + dateValue.getDate()).slice(-2)}`;
-
-  //----------------------------------------------------------------------------------------------
+  let dateTime = getDateTime(dateValue);
   useEffect(() => {
     const searchTodoList = async () => {
       const data = await fetch(`http://localhost:4000/getTodoList/${dateTime}`);
@@ -32,29 +27,31 @@ function TodoApp({ dateValue, onDetailDateToggle }) {
         };
         todoArr.push(todoOne);
       }
-      console.log(todoArr);
       setTodos(todoArr);
     };
     searchTodoList();
   }, [dateTime]);
 
   const addTodoItem = async (todo) => {
-    const data = await fetch(`http://localhost:4000/addTodoList/${dateTime}`);
+    let insertData = {
+      method: "POST",
+      body: JSON.stringify({ dateTime, todo }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const data = await fetch(`http://localhost:4000/addTodoList/`, insertData);
     const json = await data.json();
-    
   };
 
   if (todos.length === 0) {
     //todo가 존재하지 않을 경우 nextId = 1로 지정
     nextId = 1;
   } else {
-    console.log("enter");
-
     //이미 todo가 존재할 경우 id중 nextId = 가장 높은 값 + 1
     let arr = [];
     todos.map((v) => arr.push(v.id));
     nextId = Math.max.apply(null, arr) + 1;
-    console.log(nextId);
   }
   const onCheckToggle = (id) => {
     setTodos((todos) =>
@@ -100,7 +97,6 @@ function TodoApp({ dateValue, onDetailDateToggle }) {
     );
   };
 
-  
   return (
     <Template dateTime={dateTime} todoLength={todos.length}>
       <TodoList
